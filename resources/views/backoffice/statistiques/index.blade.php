@@ -5,7 +5,7 @@
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
    <div class="">
       <h1 class="h3 mb-0 text-gray-800">Les revenus</h1>
-      <small>Prendre en compte les charges du magazin</small>
+      <small>Prennent en compte les charges du magazin</small>
    </div>
 </div>
 

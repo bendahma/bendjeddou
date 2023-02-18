@@ -22,12 +22,12 @@ class DatabaseSeeder extends Seeder
             'address' => 'Skikda',
             'commune' => 'Skikda',
         ]);
-        $trailStart = Carbon::today();
-        $trailEnd = Carbon::today()->addDays(15) ;
-        Activation::create([
-           'trailStart' => $trailStart,
-            'trailEnd' => $trailEnd,
-            'code_activation' => '$2y$10$Wx5hpn4abcZH6x6ZrQpBF.tbbu8xjJpFFSN/YrJhS08j6w8H4Q64q' ,
-        ]);
+        // $trailStart = Carbon::today();
+        // $trailEnd = Carbon::today()->addDays(15) ;
+        // Activation::create([
+        //    'trailStart' => $trailStart,
+        //     'trailEnd' => $trailEnd,
+        //     'code_activation' => '$2y$10$Wx5hpn4abcZH6x6ZrQpBF.tbbu8xjJpFFSN/YrJhS08j6w8H4Q64q' ,
+        // ]);
     }
 }

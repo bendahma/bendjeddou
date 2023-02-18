@@ -49,8 +49,10 @@
           <span>Facilité</span></a>
        </li>
        <hr class="sidebar-divider">
-       <li class="nav-item @if( Route::is('product.*') ) active @endif" style="z-index: 99">
-         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#productCollapse" aria-expanded="true" aria-controls="productCollapse">
+       
+       <li class="nav-item">
+         <a class="nav-link collapsed" href="" data-toggle="collapse" data-target="#productCollapse" 
+         aria-expanded="true" aria-controls="productCollapse">
            <i class="fas fa-laptop"></i>
            <span>Produits</span>
          </a>
@@ -121,7 +123,7 @@
          </a>
          <div id="magazinCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
            <div class="bg-white py-2 collapse-inner rounded">
-             <h6 class="collapse-header">Products</h6>
+             <h6 class="collapse-header">Magazin</h6>
              <a class="collapse-item" href=" {{route('magazin.profile')}} "><i class="fas fa-address-card mr-1"></i>Profile</a>
              <a class="collapse-item" href=" {{route('employee.index')}} " ><i class="fas fa-user-friends mr-1"></i>Employées</a>
              <a class="collapse-item" href=" {{route('users.index')}} " ><i class="fas fa-user mr-1"></i>Utilisateurs</a>
@@ -239,17 +241,20 @@
   </div>
 
   @livewireScripts
-  <script src="{{asset('js/app.js')}}"></script>
-  <script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
-  <script src="{{asset('js/jquery.dataTables.min.js')}}"></script>
-  <script src="{{asset('js/dataTables.bootstrap4.min.js')}}"></script>
-  <script src=" {{asset('js/sweetalert2.min.js')}} "></script>
-  <script src=" {{asset('js/Chart.min.js')}} "></script>
-  <script src=" {{asset('js/Chartisan.min.js')}} "></script>
+  <script src="{{ asset('js/jquery-3.2.1.min.js')}}"></script>
+  <script src="{{ asset('js/app.js')}}"></script>
+  <script src="{{ asset('js/bootstrap.bundle.min.js')}}"></script>
+  <script src="{{ asset('js/jquery.dataTables.min.js')}}"></script>
+  <script src="{{ asset('js/dataTables.bootstrap4.min.js')}}"></script>
+  <script src="{{ asset('js/sweetalert2.min.js')}} "></script>
+  <script src="{{ asset('js/Chart.min.js')}} "></script>
+  <script src="{{ asset('js/Chartisan.min.js')}} "></script>
+  <script src="{{ asset('js/Chartisan.min.js')}} "></script>
+  <script src="{{ asset('js/site.js')}} "></script>
 
   @yield('scripts');
 
-  <script type="text/javascript">
+  {{-- <script type="text/javascript">
          var dateDebut = "{{date('Y-m').'-01'}}'" ;
          var dateFin = "{{date('Y-m').'-31'}}" ;
          const chart = new Chartisan({
@@ -289,7 +294,7 @@
 
              });
 
-</script>
+</script> --}}
 
   <script type="text/javascript">
         $(document).ready( function () {

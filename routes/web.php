@@ -19,11 +19,12 @@ use App\Http\Controllers\ActivationController;
 
 Route::redirect('/','/login');
 
-Route::get('/activation', [DashboardController::class,'notActivated'])->name('notActivated');
+// Route::get('/activation', [DashboardController::class,'notActivated'])->name('notActivated');
 
-Route::post('/activation', [ActivationController::class,'activate'])->name('activation.activate');
+// Route::post('/activation', [ActivationController::class,'activate'])->name('activation.activate');
 
-Route::middleware(['auth','chekcActivation'])->group(function(){
+// Route::middleware(['auth','chekcActivation'])->group(function(){
+Route::middleware(['auth'])->group(function(){
 
 
    Route::get('/dashboard', [DashboardController::class,'index'])->name('dashboard');
