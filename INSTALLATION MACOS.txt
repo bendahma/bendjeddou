@@ -1,0 +1,16 @@
+# Homebrew
+https://brew.sh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+terminal -> password 
+# GIT 
+brew install git
+# PHP 
+brew install php@8.0
+php -v
+# COMPOSER
+brew install composer
+composer about
+# NODE.JS
+https://nodejs.org/en/download/ -> LTS VERSION -> macOS Installer (.pkg)
+Normal GUI installation (with mac passwoed)
+close -> close installer package -> new terminal : node -v
