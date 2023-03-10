@@ -50,8 +50,8 @@
        </li>
        <hr class="sidebar-divider">
        
-       <li class="nav-item">
-         <a class="nav-link collapsed" href="" data-toggle="collapse" data-target="#productCollapse" 
+       <li class="nav-item" style="z-index: 99">
+         <a class="nav-link collapsed" style="z-index: 99" href="" data-toggle="collapse" data-target="#productCollapse" 
          aria-expanded="true" aria-controls="productCollapse">
            <i class="fas fa-laptop"></i>
            <span>Produits</span>
