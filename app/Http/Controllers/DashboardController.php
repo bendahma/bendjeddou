@@ -11,6 +11,7 @@ use Illuminate\Support\Arr;
 use App\Stock;
 use App\BonVente;
 use App\Frais;
+use App\Product;
 use App\Models\Activation;
 
 class DashboardController extends Controller
@@ -23,22 +24,36 @@ class DashboardController extends Controller
 
     public function index()
     {
-
-        $monthlyEarning = BonVente::sumMontantGlobal(date('Y-m'.'-01'),date('Y-m'.'-31')) - Frais::sumFrais(date('Y-m'.'-01'),date('Y-m'.'-31')) ;
-        $trimestreEarning = BonVente::sumMontantGlobal(date('Y'.'-01-01'),date('Y'.'-03-31')) - Frais::sumFrais(date('Y'.'-01-01'),date('Y'.'-03-31')) ;
-        $semestreEarning = BonVente::sumMontantGlobal(date('Y'.'-01-01'),date('Y'.'-06-31')) - Frais::sumFrais(date('Y'.'-01-01'),date('Y'.'-06-31')) ;
-        $anneeEarning = BonVente::sumMontantGlobal(date('Y'.'-01-01'),date('Y'.'-12-31')) - Frais::sumFrais(date('Y'.'-01-01'),date('Y'.'-12-31')) ;
-        // ----------------------
-        $netMonthlyEarning = BonVente::sumMontantGlobal(date('Y-m'.'-01'),date('Y-m'.'-31'))  ;
-        $netTrimestreEarning = BonVente::sumMontantGlobal(date('Y'.'-01-01'),date('Y'.'-03-31'))  ;
-        $netSemestreEarning = BonVente::sumMontantGlobal(date('Y'.'-01-01'),date('Y'.'-06-31'))  ;
-        $netAnneeEarning = BonVente::sumMontantGlobal(date('Y'.'-01-01'),date('Y'.'-12-31')) ;
-
-        $earning = [
-            'monthlyEarning' => $monthlyEarning,
-            'trimestreEarning' => $trimestreEarning,
-            'semestreEarning' => $semestreEarning,
-            'anneeEarning' => $anneeEarning,
+        $products = Product::with('stock')->get();
+        
+        $montantOnHold = 0 ;
+        $produitsReste = 0 ;
+        foreach ($products as $product) {
+            $montantOnHold += $product->stock->quantiteReste * $product->price->prixAchat ;
+            $produitsReste += $product->stock->quantiteReste ;
+        }
+        dd($produitVenduNetWorth) ;
+        // ----------------Les charges --------------------------------------------------------------------------
+        $monthlyFrais = Frais::sumFrais(date('Y-m'.'-01'),date('Y-m'.'-31')) ;
+        $trimestreFrais = Frais::sumFrais(date('Y'.'-01-01'),date('Y'.'-03-31')) ;
+        $semestreFrais = Frais::sumFrais(date('Y'.'-01-01'),date('Y'.'-06-31')) ;
+        $anneeFrais = Frais::sumFrais(date('Y'.'-01-01'),date('Y'.'-12-31')) ;
+        // --------------MMONTANT TOTAL ---------------------------------------------------------------------------------------
+        $globalMonthlyEarning = BonVente::sumMontantGlobal(date('Y-m'.'-01'),date('Y-m'.'-31'))  ;
+        $globalTrimestreEarning = BonVente::sumMontantGlobal(date('Y'.'-01-01'),date('Y'.'-03-31'))  ;
+        $globalSemestreEarning = BonVente::sumMontantGlobal(date('Y'.'-01-01'),date('Y'.'-06-31'))  ;
+        $globalAnneeEarning = BonVente::sumMontantGlobal(date('Y'.'-01-01'),date('Y'.'-12-31')) ;
+        //------------- NET GAINED -----------------------------------------------------------------------------
+        $netMonthlyEarning = BonVente::sumMontantNetGlobal(date('Y-m'.'-01'),date('Y-m'.'-31'))  ;
+        $netTrimestreEarning = BonVente::sumMontantNetGlobal(date('Y'.'-01-01'),date('Y'.'-03-31'))  ;
+        $netSemestreEarning = BonVente::sumMontantNetGlobal(date('Y'.'-01-01'),date('Y'.'-06-31'))  ;
+        $netAnneeEarning = BonVente::sumMontantNetGlobal(date('Y'.'-01-01'),date('Y'.'-12-31')) ;
+        //------------------------------------------------------------------------------------------------------
+        $frais = [
+            'monthlyFrais' => $monthlyFrais,
+            'trimestreFrais' => $trimestreFrais,
+            'semestreFrais' => $semestreFrais,
+            'anneeFrais' => $anneeFrais,
         ];
 
         $netEarning = [
@@ -48,18 +63,27 @@ class DashboardController extends Controller
             'netAnneeEarning' => $netAnneeEarning,
         ];
 
-        $dailyVente = BonVente::select(DB::raw('DATE(created_at) as date'), DB::raw('sum(montantTotal) as montant'), DB::raw('sum(montantReste) as montantReste'))
+        $globalEarning = [
+            'globalMonthlyEarning' => $globalMonthlyEarning,
+            'globalTrimestreEarning' => $globalTrimestreEarning,
+            'globalSemestreEarning' => $globalSemestreEarning,
+            'globalAnneeEarning' => $globalAnneeEarning,
+        ];
+
+        $dailyVente = BonVente::select(DB::raw('DATE(created_at) as date'), 
+                                       DB::raw('sum(montantTotal) as montant'), 
+                                       DB::raw('sum(montantReste) as montantReste'),
+                                       DB::raw('sum(montantNetTotal) as montantNetTotal'))
                               ->groupBy('date')
                               ->get();
 
          return view('backoffice.statistiques.index')
-                  ->with('earning',$earning)
+                  ->with('frais',$frais)
+                  ->with('globalEarning',$globalEarning)
                   ->with('netEarning',$netEarning)
+                  ->with('montantOnHold',$montantOnHold)
+                  ->with('produitsReste',$produitsReste)
                   ->with('dailyVente',$dailyVente);
 
-    }
-
-    public function notActivated(){
-       return view('backoffice.notActivated') ;
     }
 }

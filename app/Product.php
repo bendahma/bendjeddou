@@ -17,7 +17,6 @@ class Product extends Model
 
     protected $guarded = [];
 
-
     public function price(){
         return $this->hasOne(Price::class);
     }

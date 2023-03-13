@@ -172,9 +172,9 @@
                                     <td style="width:40%"> {{$product->name}} </td>
                                     <td style="width:30%">
                                         @if ($product->check_discount($product->id))
-                                            <span style="font-size: 0.8rem;   text-decoration: line-through"> {{  number_format(  $product->price->prixVenteGros,2,'.',' ' ) }} </span>
+                                            <span style="font-size: 0.8rem;   text-decoration: line-through"> {{  number_format(  $product->price[$TypeVente],2,'.',' ' ) }} </span>
                                             <span class="badge rounded-pill bg-danger text-light ml-1">En remise</span> <br>
-                                            {{  number_format(  $product->price->prixVenteGros -  ( ($product->price->prixVenteGros *  $product->price->remise) / 100 ) ,2,'.',' ')}} DA
+                                            {{  number_format(  $product->price[$TypeVente] -  ( ($product->price[$TypeVente] *  $product->price->remise) / 100 ) ,2,'.',' ')}} DA
                                         @else
                                        <div class="d-flex align-items-center ">
                                           {{ $product->price->prixVenteFinale != 0 ? number_format( $product->price->prixVenteFinale ,2,'.',' ') : number_format( $product->price[$TypeVente],2,'.',' ') }}

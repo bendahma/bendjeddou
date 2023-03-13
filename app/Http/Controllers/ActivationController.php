@@ -10,21 +10,7 @@ use Illuminate\Support\Facades\Hash;
 
 class ActivationController extends Controller
 {
-    public function activate(Request $request){
-       
-      $activation = Activation::first();
-      
-      if (Hash::check($request->code_activation, $activation->code_activation)) {
-     
-         $activation->update([
-            'trailStart' => null ,
-            'trailEnd' => null ,
-            'activated' => true ,
-         ]);
-         
-      }
-
-      return redirect(route('dashboard')) ;
+    public function activate(Request $request){    
 
     }
     public function index()

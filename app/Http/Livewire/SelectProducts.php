@@ -36,7 +36,9 @@ class SelectProducts extends Component {
     public $editQuantite = 0 ;
 
     public $montantTotalBonVente = 0 ;
-    public $montantTotalBonVenteSansRemise = 0 ;
+    // public $montantTotalBonVenteSansRemise = 0 ;
+    public $montantNetTotalBonVente = 0 ;
+    public $montantNetTotalBonVenteSansRemise = 0 ;
     public $montantGained = 0 ;
     public $montantTotal = 0 ;
     public $remiseExist = false ;
@@ -48,7 +50,7 @@ class SelectProducts extends Component {
 
     public function hydrate(){
         $this->selectedProducts = $this->bonVente->products ;
-        $this->remiseExist = $this->montantTotalBonVente != $this->montantTotalBonVenteSansRemise ? true : false ;
+        // $this->remiseExist = $this->montantTotalBonVente != $this->montantTotalBonVenteSansRemise ? true : false ;
 
     }
 
@@ -70,27 +72,30 @@ class SelectProducts extends Component {
             } else {
                if($product->price->prixVenteFinale == 0){
 
-                  $this->montantTotal = $product::check_discount($product->id) ? ($product->price->prixDetails - (($product->price->prixDetails*$product->price->remise)/100))*$this->qtt : $product->price[$this->TypeVente] * $this->qtt;
-               
-                  $this->montantTotalBonVenteSansRemise =  $product->price[$this->TypeVente] * $this->qtt ;
+                  $this->montantTotal = $product::check_discount($product->id) ? ($product->price[$this->TypeVente] - (($product->price[$this->TypeVente]*$product->price->remise)/100))*$this->qtt 
+                                                                               : $product->price[$this->TypeVente] * $this->qtt;
+
+                //   $this->montantTotalBonVenteSansRemise =  $product->price[$this->TypeVente] * $this->qtt ;
                   
                }else {
 
                   $this->montantTotal = $product::check_discount($product->id) ? 
-                                                                              ($product->price->prixDetails - (($product->price->prixDetails*$product->price->remise)/100)) * $this->qtt 
-                                                                              : $product->price->prixVenteFinale * $this->qtt;
+                                                                              ($product->price[$this->TypeVente] - (($product->price[$this->TypeVente]*$product->price->remise)/100)) * $this->qtt 
+                                                                              : $product->price[$this->TypeVente] * $this->qtt;
                
-                  $this->montantTotalBonVenteSansRemise =  $product->price->prixVenteFinale * $this->qtt ;
+                //   $this->montantTotalBonVenteSansRemise =  $product->price->prixVenteFinale * $this->qtt ;
                   
                }
                
                $this->montantGained = $this->montantTotal - ( $product->price->prixAchat * $this->qtt ) ;
                
-               $prixVente = $product->price->discount == true ? $product->price->prixDetails - (($product->price->prixDetails*$product->price->remise)/100) : $product->price[$this->TypeVente] ;
+               $prixVente = $product->price->discount == true ? $product->price[$this->TypeVente] - (($product->price[$this->TypeVente]*$product->price->remise)/100) : $product->price[$this->TypeVente] ;
                
-               $this->bonVente->products()->attach($product,['quantite'=>$this->qtt,'montantTotal'=>$this->montantTotal,'montantGained'=>$this->montantGained,'prixVente'=>$prixVente,]);
+               $this->bonVente->products()->attach($product,['quantite'=>$this->qtt,'montantTotal'=>$this->montantTotal,'montantGained'=>$this->montantGained,'prixVente'=>$prixVente]);
                
                $this->bonVente->updateMontantBonVente($this->montantTotal);
+               
+               $this->bonVente->updateMontantNetBonVente($this->montantGained);
                
                $quantiteReste = $product->stock->quantiteReste - $this->qtt ;
                
@@ -112,9 +117,13 @@ class SelectProducts extends Component {
 
             $this->montantTotal = $product->price->discount == true ? ($product->price->prixDetails - (($product->price->prixDetails*$product->price->remise)/100))*$quantite
                                                       : $product->price[$this->TypeVente] * $quantite;
-            $this->montantTotalBonVenteSansRemise -=  $product->price[$this->TypeVente] * $quantite ;
+            // $this->montantTotalBonVenteSansRemise -=  $product->price[$this->TypeVente] * $quantite ;
             $this->bonVente->updateMontantBonVente($this->montantTotal,null,'remove');
             $this->bonVente->products()->detach($product);
+            
+            $this->montantGained = $this->montantTotal - ( $product->price->prixAchat * $this->qtt ) ;
+
+            $this->bonVente->updateMontantNetBonVente($this->montantGained,null,'remove');
 
             $quantiteReste =  $product->stock->quantiteReste + $quantite ;
             $outOfStock = $product->stock->quantiteReste == 0 ? 1 : 0 ;
@@ -139,11 +148,17 @@ class SelectProducts extends Component {
                                                          ->where('bon_vente_id',$this->bonVente->id)
                                                          ->where('product_id',$product->id)
                                                          ->first();
+            
             $oldQuantite = DB::table('bon_vente_product')->select('bon_vente_product.quantite')
                         ->where('bon_vente_id',$this->bonVente->id)
                         ->where('product_id',$product->id)
                         ->first();
+            
             $this->bonVente->updateMontantBonVente($oldMontant->montantTotal,null,'remove');
+            $this->montantGained = $this->montantTotal - ( $product->price->prixAchat * $this->qtt ) ;
+
+            $this->bonVente->updateMontantNetBonVente($this->montantGained);
+            
             if($product->price->prixVenteFinale == 0){
                $this->montantTotal = $product->price->discount == true ? ($product->price->prixDetails - (($product->price->prixDetails*$product->price->remise)/100)) * $this->editQuantite
                                                                         : $product->price[$this->TypeVente] * $this->editQuantite;
@@ -153,13 +168,15 @@ class SelectProducts extends Component {
                                                                        : $product->price->prixVenteFinale * $this->editQuantite;
 
             }
-            // $this->montantTotal = $product->price->discount == true ? ($product->price->prixDetails - (($product->price->prixDetails*$product->price->remise)/100)) * $this->editQuantite
-            //                         : $product->price[$this->TypeVente] * $this->editQuantite;
             
             $product->bonventes()->sync([$this->bonVente->id => ['quantite' => $this->editQuantite,'montantTotal'=> $this->montantTotal]]);
+            
             $this->bonVente->updateMontantBonVente($this->montantTotal);
+            
             $this->editQuantite = 1 ;
+            
             $this->emit('refresh');
+            
             $this->emit('closeModel');
          }
         

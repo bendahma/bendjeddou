@@ -1,14 +1,11 @@
 <div>
-       <div class="card bg-secondary text-white shadow mb-4">
-       <div class="card-header bg-secondary text-white py-3 d-flex flex-row align-items-center justify-content-between">
+       <div class="card shadow mb-4">
+       <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
           <h6 class="m-0 font-weight-bold ">Les Produits Les Plus Vendu</h6>
        </div>
        <!-- Card Body -->
        <div class="card-body">
         <div class="row">
-
-
-
             <div class="col-lg-2">
                 <select name="" id="" class="custom-select" wire:model="items">
                     <option value="10">10</option>
@@ -24,12 +21,12 @@
                 </select>
             </div>
         </div>
-          <table class="table mt-1 text-white font-weight-bold">
+          <table class="table mt-1 font-weight-bold">
              <thead>
              <tr>
                 <th>Réf</th>
                 <th>Produit</th>
-                <th>Quantité</th>
+                <th>Quantité vendu</th>
              </tr>
              </thead>
              <tbody>

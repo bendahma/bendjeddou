@@ -100,10 +100,29 @@ class BonVente extends Model
          ]);
       }
 
+      public function updateMontantNetBonVente($montantGained = null,$montantVerse = null,$op = null){
+         $bon = BonVente::find($this->id);
+
+         if($montantGained != null){
+            $mTotal = !is_null($op) && $op == 'remove' ? $bon->montantGained - $montantGained : $bon->montantGained + $montantGained;
+            $mTotal = $mTotal > 0 ? $mTotal : 0 ;
+            $bon->update([
+               'montantNetTotal' => $mTotal ,
+            ]);
+         }
+      }
+
       public static function sumMontantGlobal($dateDebut,$dateFin){
          return DB::table('bon_ventes')->whereBetween('created_at', [$dateDebut . ' 00:00:00', $dateFin . ' 23:59:59'])
                      ->selectRaw('sum(montantTotal) as sommeMontantGlobal')
                      ->first()
                      ->sommeMontantGlobal;
+      }
+
+      public static function sumMontantNetGlobal($dateDebut,$dateFin){
+         return DB::table('bon_ventes')->whereBetween('created_at', [$dateDebut . ' 00:00:00', $dateFin . ' 23:59:59'])
+                     ->selectRaw('sum(montantNetTotal) as sommeMontantNetGlobal')
+                     ->first()
+                     ->sommeMontantNetGlobal;
       }
 }
