@@ -16,6 +16,16 @@ class StatistiqueController extends Controller
                         ->orderBy('qtt','ASC')
                         ->take(10)
                         ->get();
+
+
+         $m = DB::table('products')
+                        ->join('stocks', 'products.id', '=', 'stocks.product_id')
+                        ->select('products.*', DB::raw('stocks.quantiteTotal - stocks.quantiteReste as qtt'))
+                        ->orderBy('qtt','ASC')
+                        ->take(10)
+                        ->get();
+        dd($m);
+        
          $monthlyEarning = BonVente::sumMontantGlobal(date('Y-m'.'-01'),date('Y-m'.'-31')) - Frais::sumFrais(date('Y-m'.'-01'),date('Y-m'.'-31')) ;
          $trimestreEarning = BonVente::sumMontantGlobal(date('Y'.'-01-01'),date('Y'.'-03-31')) - Frais::sumFrais(date('Y'.'-01-01'),date('Y'.'-03-31')) ;
          $semestreEarning = BonVente::sumMontantGlobal(date('Y'.'-01-01'),date('Y'.'-06-31')) - Frais::sumFrais(date('Y'.'-01-01'),date('Y'.'-06-31')) ;
