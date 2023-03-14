@@ -44,7 +44,12 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-
+        $validated = $request->validate([
+            'prixAchat' => 'required|numeric',
+            'prixVenteGros' => 'required|numeric',
+            'prixDetails' => 'required|numeric',
+            'prixFacilite' => 'required|numeric',
+        ]);
 
         $count = Product::where('refProduit',$request->refProduit)->count();
 

@@ -70,7 +70,7 @@
                         <div class="col">
                             <div class="form-group">
                               <small class="text-muted">Prix d'Achat</small>
-                              <input type="text" required class="form-control" id="" placeholder="Prix d'achat " name="prixAchat" value="{{isset($product) ? $product->price->prixAchat : ''}}">
+                              <input type="number" required class="form-control" id="" placeholder="Prix d'achat " name="prixAchat" value="{{isset($product) ? $product->price->prixAchat : ''}}">
                                 @error('price')
                                     <div class="" style="color:red;font-size:0.8rem;font-weight:700">{{ $message }}</div>
                                 @enderror
@@ -79,7 +79,7 @@
                             <div class="col">
                                 <div class="form-group">
                                  <small class="text-muted">Prix du gros</small>
-                                    <input type="text" class="form-control" required id="" placeholder="Prix du gros" name="prixVenteGros" value="{{isset($product) ? $product->price->prixVenteGros : ''}}">
+                                    <input type="number" class="form-control" required id="" placeholder="Prix du gros" name="prixVenteGros" value="{{isset($product) ? $product->price->prixVenteGros : ''}}">
                                     @error('price')
                                         <div class="" style="color:red;font-size:0.8rem;font-weight:700">{{ $message }}</div>
                                     @enderror
@@ -88,7 +88,7 @@
                             <div class="col">
                                 <div class="form-group">
                                     <small class="text-muted">Prix du détails</small>
-                                    <input type="text" class="form-control" required id="" placeholder="Prix du détails" name="prixDetails" value="{{isset($product) ? $product->price->prixDetails : ''}}">
+                                    <input type="number" class="form-control" required id="" placeholder="Prix du détails" name="prixDetails" value="{{isset($product) ? $product->price->prixDetails : ''}}">
                                     @error('prixDetails')
                                         <div class="" style="color:red;font-size:0.8rem;font-weight:700">{{ $message }}</div>
                                     @enderror
@@ -97,7 +97,7 @@
                             <div class="col">
                                 <div class="form-group">
                                     <small class="text-muted">Prix du facilité</small>
-                                    <input type="text" class="form-control" required id="" placeholder="Prix du facilité" name="prixFacilite" value="{{isset($product) ? $product->price->prixFacilite : ''}}">
+                                    <input type="number" class="form-control" required id="" placeholder="Prix du facilité" name="prixFacilite" value="{{isset($product) ? $product->price->prixFacilite : ''}}">
                                     @error('prixFacilite')
                                         <div class="" style="color:red;font-size:0.8rem;font-weight:700">{{ $message }}</div>
                                     @enderror
@@ -106,7 +106,7 @@
                         <div class="col">
                             <div class="form-group">
                               <small class="text-muted">Quantité dans le stock</small>
-                                <input type="text" class="form-control" name="quantiteStock" required placeholder="Quantitté dans stock" value="{{isset($product) ? $product->stock->quantiteReste : ''}}">
+                                <input type="number" class="form-control" name="quantiteStock" required placeholder="Quantitté dans stock" value="{{isset($product) ? $product->stock->quantiteReste : ''}}">
                                 @error('quantiteStock')
                                     <div class="" style="color:red;font-size:0.8rem;font-weight:700">{{ $message }}</div>
                                 @enderror

@@ -168,7 +168,8 @@
                         <tbody>
                             @forelse($products as $key => $product)
                                 <tr>
-                                    <td style="width:5%"> {{$loop->iteration}} </td>
+                                    {{-- <td style="width:5%"> {{$loop->iteration}} </td> --}}
+                                    <td style="width:5%"> {{$product->id}} </td>
                                     <td style="width:40%"> {{$product->name}} </td>
                                     <td style="width:30%">
                                         @if ($product->check_discount($product->id))
@@ -195,7 +196,7 @@
                                                                   <label for="" class="my-auto">Prix</label>
                                                                </div>
                                                                <div class="col">
-                                                                  <input type="integer" class="form-control" id="" wire:model.defer="prixVenteProduit">
+                                                                  <input type="number" class="form-control" id="" wire:model.defer="prixVenteProduit">
                                                                </div>
                                                          </div>
                                                    </div>
@@ -232,7 +233,7 @@
                     <div>
                         Affiche {{($products->currentpage()-1)*$products->perpage()+1}} à {{$products->currentpage()* $items }} Du {{$products->total()}} Produits
                     </div>
-                    {{$products->links('vendor.pagination.bootstrap-4')}}
+                    {{$products->links('vendor.pagination.simple-bootstrap-4')}}
 
                 </div>
             </div>
