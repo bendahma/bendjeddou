@@ -19,7 +19,7 @@ class SelectProducts extends Component {
     public $TypeVente = "prixDetails";
 
     public $search = "";
-    public $items = 5 ;
+    public $items = 10 ;
 
     public $bonVente ;
     public $client_id = 0;

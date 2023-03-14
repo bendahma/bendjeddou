@@ -16,7 +16,7 @@ use App\Http\Controllers\EmployeController;
 use App\Http\Controllers\VenteController;
 use App\Http\Controllers\MagazinController;
 use App\Http\Controllers\ActivationController;
-
+use App\Price ;
 Route::redirect('/','/login');
 
 // Route::get('/activation', [DashboardController::class,'notActivated'])->name('notActivated');
@@ -26,6 +26,16 @@ Route::redirect('/','/login');
 // Route::middleware(['auth','chekcActivation'])->group(function(){
 Route::middleware(['auth'])->group(function(){
 
+   Route::get('/fixBug',function(){
+      $pr = Price::where('id',110)->first();
+      $pr->update([
+         'prixVenteGros' => 0.0,
+      ]);
+      $pr->update([
+         'prixVenteGros' => 41000.0,
+      ]);
+
+   });
 
    Route::get('/dashboard', [DashboardController::class,'index'])->name('dashboard');
 

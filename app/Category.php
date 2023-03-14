@@ -39,7 +39,7 @@ class Category extends Model
       if($products->count() > 0){
          foreach ($products as $product) {
             $total_achat += $product->price->prixAchat ;
-            $total_gros += $product->price->prixVenteGros ;
+            $total_gros += is_numeric($product->price->prixVenteGros) ? $product->price->prixVenteGros : 0 ;
             $total_details += $product->price->prixDetails ;
             $total_facilite += $product->price->prixFacilite ;
          };
