@@ -32,7 +32,7 @@ class DashboardController extends Controller
             $montantOnHold += $product->stock->quantiteReste * $product->price->prixAchat ;
             $produitsReste += $product->stock->quantiteReste ;
         }
-
+        // test git 
         // ----------------Les charges --------------------------------------------------------------------------
         $monthlyFrais = Frais::sumFrais(date('Y-m'.'-01'),date('Y-m'.'-31')) ;
         $trimestreFrais = Frais::sumFrais(date('Y'.'-01-01'),date('Y'.'-03-31')) ;
