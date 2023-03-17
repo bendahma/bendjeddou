@@ -102,9 +102,9 @@ class BonVente extends Model
 
       public function updateMontantNetBonVente($montantGained = null,$montantVerse = null,$op = null){
          $bon = BonVente::find($this->id);
-
          if($montantGained != null){
-            $mTotal = !is_null($op) && $op == 'remove' ? $bon->montantGained - $montantGained : $bon->montantGained + $montantGained;
+            $mTotal = (!is_null($op) && $op == 'remove') ? $bon->montantNetTotal - $montantGained 
+                                                         : $bon->montantNetTotal + $montantGained;
             $mTotal = $mTotal > 0 ? $mTotal : 0 ;
             $bon->update([
                'montantNetTotal' => $mTotal ,
