@@ -73,22 +73,16 @@ class SelectProducts extends Component {
                if($product->price->prixVenteFinale == 0){
 
                   $this->montantTotal = $product::check_discount($product->id) ? ($product->price[$this->TypeVente] - (($product->price[$this->TypeVente]*$product->price->remise)/100))*$this->qtt 
-                                                                               : $product->price[$this->TypeVente] * $this->qtt;
-
-                //   $this->montantTotalBonVenteSansRemise =  $product->price[$this->TypeVente] * $this->qtt ;
-                  
+                                                                               : $product->price[$this->TypeVente] * $this->qtt;                  
                }else {
 
                   $this->montantTotal = $product::check_discount($product->id) ? 
-                                                                              ($product->price[$this->TypeVente] - (($product->price[$this->TypeVente]*$product->price->remise)/100)) * $this->qtt 
-                                                                              : $product->price[$this->TypeVente] * $this->qtt;
-               
-                //   $this->montantTotalBonVenteSansRemise =  $product->price->prixVenteFinale * $this->qtt ;
-                  
+                                                                              ($product->price->prixVenteFinale - (($product->price->prixVenteFinale*$product->price->remise)/100)) * $this->qtt 
+                                                                              : $product->price->prixVenteFinale * $this->qtt;                  
                }
                
                $this->montantGained = $this->montantTotal - ( $product->price->prixAchat * $this->qtt ) ;
-               
+
                $prixVente = $product->price->discount == true ? $product->price[$this->TypeVente] - (($product->price[$this->TypeVente]*$product->price->remise)/100) : $product->price[$this->TypeVente] ;
                
                $this->bonVente->products()->attach($product,['quantite'=>$this->qtt,'montantTotal'=>$this->montantTotal,'montantGained'=>$this->montantGained,'prixVente'=>$prixVente]);
@@ -102,6 +96,8 @@ class SelectProducts extends Component {
                $product->stock->update(['quantiteReste' => $quantiteReste]);
                
                $this->qtt = 1 ;
+               $this->montantTotal = 0 ;
+               $this->montantGained = 0 ;
 
                if($this->TypeVente == 'prixFacilite') {
                   $this->montantVerse = ( $this->montantTotal * 30 ) / 100 ;

@@ -265,7 +265,7 @@
                                     <td style="width:15%">
                                         {{$product->pivot->quantite}}
                                     </td>
-                                    <td style="width:40%;font-size:0.8rem;font-weight:700">{{ number_format($product->pivot->montantTotal,2,'.',' ')}} DA</td>
+                                    <td style="width:40%;font-size:0.8rem;font-weight:700">{{ number_format($product->pivot->prixVente,2,'.',' ')}} DA</td>
                                     <td style="width:5%">
                                         <div class="d-flex">
                                             <button class="btn border-0 text-success btn-block" data-toggle="modal" data-target="#{{'editQuantite'.$product->id}}">
