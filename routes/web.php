@@ -60,7 +60,8 @@ Route::middleware(['auth'])->group(function(){
                   Route::post('/editQuantite/{bonVente}/{product}',[BonVenteController::class,'editQuantite'])->name('editQuantite');
                   Route::get('/{bonVente}/removeBon',[BonVenteController::class,'removeBonVente'])->name('remove');
                   Route::get('telecharger/{bonVente}',[BonVenteController::class,'Telecharge'])->name('telecharge');
-                  Route::get('remboursement/{bonVente}',[BonVenteController::class,'Rembourse'])->name('rembourse');
+                  Route::get('/{bonVente}/client',[BonVenteController::class,'addClient'])->name('addClient');
+                  Route::patch('/client',[BonVenteController::class,'saveClient'])->name('saveClient');
             });
          });
 

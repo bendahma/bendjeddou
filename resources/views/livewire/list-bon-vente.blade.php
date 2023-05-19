@@ -61,7 +61,7 @@
                             <tr class=" {{$b->montantReste <  0 ? 'bg-danger text-light' : ''}} " >
                                 <td> {{$loop->iteration}} </td>
                                 <td> {{$b->id}} </td>
-                                <td> {{isset($b->client) ? $b->client->firstName . ' ' . $b->client->lastName : ''}} </td>
+                                <td class="text-uppercase"> {{isset($b->client) ? $b->client->firstName . ' ' . $b->client->lastName : ''}} </td>
                                 <td> {{number_format($b->montantTotal,2,'.',' ')}} DA </td>
                                 <td> {{number_format($b->montantPayer,2,'.',' ')}} DA </td>
                                 <td> {{number_format($b->montantReste,2,'.',' ')}} DA </td>

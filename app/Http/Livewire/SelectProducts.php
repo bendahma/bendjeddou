@@ -22,8 +22,8 @@ class SelectProducts extends Component {
     public $items = 10 ;
 
     public $bonVente ;
-    public $client_id = 0;
-    public $client;
+    public $clientId = 0;
+    public $client = null;
 
     public $selectedProducts;
     public $productToBeSelected ;
@@ -52,6 +52,11 @@ class SelectProducts extends Component {
         $this->selectedProducts = $this->bonVente->products ;
         // $this->remiseExist = $this->montantTotalBonVente != $this->montantTotalBonVenteSansRemise ? true : false ;
 
+    }
+
+    public function updatedClientId(){
+        $this->bonVente->update(['client_id'=>$this->clientId]);
+        $this->client = Client::find($this->clientId);
     }
 
     public function changePrixVente($id){
@@ -229,9 +234,8 @@ class SelectProducts extends Component {
        
 
         // update bon vente
-        if ($this->client_id != 0) {
-            $this->bonVente->update(['client_id'=>$this->client_id]);
-            $this->client = Client::find($this->client_id);
+        if ($this->client != null) {
+            
             $template->setValue('codeClient',$this->client->id );
             $template->setValue('clinetName',$this->client->firstName . ' ' . $this->client->lastName);
             $template->setValue('clientAdresse',$this->client->address . ' ' . $this->client->commune . ' ' . $this->client->wilaya);

@@ -79,12 +79,53 @@
                 </div>
               </div>
         </div>
+        <div class="row">
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-primary shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Client</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800 text-uppercase text-xl">
+                            {{ !is_null($bonVente->client) ? $bonVente->client->firstName . " " . $bonVente->client->lastName : ''}}
+                        </div>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-user-alt fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-success shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Numero Téléphone</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                          {{ !is_null($bonVente->client) ? $bonVente->client->mobile : '' }}
+                        </div>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-user-alt fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+        </div>
 
         <div class="card card-success">
             <div class="card-header">
                 <div class="d-sm-flex align-items-center justify-content-between">
-                    <h4 class="pt-1" style="font-weight: 700">Facture N° {{ $bonVente->id }} (Vente en {{$bonVente->typeVente}})</h4>
+                    <h4 class="pt-1" style="font-weight: 700">Facture N° {{ $bonVente->id }}</h4>
                     <div class="">
+                      @if ($bonVente->client == null)
+                      <a href=" {{route('bonVente.addClient',$bonVente->id)}} " class="d-none d-sm-inline-block btn btn-outline-warning text-dark shadow-sm"><i class="fas fa-user-alt mr-2"></i>Ajouter le client</a>
+                      @endif
                       <a href=" {{route('bonVente.telecharge',$bonVente->id)}} " class="d-none d-sm-inline-block btn btn-outline-success shadow-sm"><i class="fas fa-cloud-download-alt mr-2"></i>Téléchargé la facture</a>
                       @if ($bonVente->montantReste < 0)
                         <a href=" {{route('bonVente.rembourse',$bonVente->id)}} " class="d-none d-sm-inline-block btn btn-outline-warning text-dark shadow-sm"><i class="fas fa-hand-holding-usd mr-2"></i>Montant Rembourser</a>

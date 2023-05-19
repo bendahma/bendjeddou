@@ -20,6 +20,8 @@ class BonVenteController extends Controller
     }
 
     public function details(BonVente $bonVente){
+        $bonVente->load('client');
+        // dd($bonVente);
         $sumQtt = 0 ;
         foreach ($bonVente->products as $v) {
             $sumQtt += $v->pivot->quantite ;
@@ -28,6 +30,18 @@ class BonVenteController extends Controller
         return view('backoffice.bonVente.details')
                             ->with('bonVente',$bonVente)
                             ->with('sumQtt',$sumQtt);
+    }
+
+    public function addClient(BonVente $bonVente){
+        $clients = Client::all();
+        return view('backoffice.bonVente.addClient')->with('bonVente',$bonVente)->with('clients',$clients);
+                            
+    }
+
+    public function saveClient(Request $request){
+        $bon = BonVente::find($request->bonVente);
+        $bon->update(['client_id' => $request->client_id]);   
+        return redirect()->route('bonVente.index');       
     }
 
    public function versement(Request $request,$bon){

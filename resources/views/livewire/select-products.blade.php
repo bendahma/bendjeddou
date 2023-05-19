@@ -39,7 +39,7 @@
                                        @if ($clients->count() > 0)
                                             <div class="row">
                                                 <div class="col">
-                                                    <select class="custom-select" id="clientList" wire:model="client_id">
+                                                    <select class="custom-select" id="clientList" wire:model="clientId">
                                                         <option>Choisi un client</option>
                                                         @foreach ($clients as $client)
                                                         <option value="{{$client->id}}" >{{$client->firstName . ' ' . $client->lastName}}</option>
