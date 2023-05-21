@@ -126,7 +126,7 @@
                       @if ($bonVente->client == null)
                       <a href=" {{route('bonVente.addClient',$bonVente->id)}} " class="d-none d-sm-inline-block btn btn-outline-warning text-dark shadow-sm"><i class="fas fa-user-alt mr-2"></i>Ajouter le client</a>
                       @endif
-                      <a href=" {{route('bonVente.telecharge',$bonVente->id)}} " class="d-none d-sm-inline-block btn btn-outline-success shadow-sm"><i class="fas fa-cloud-download-alt mr-2"></i>Téléchargé la facture</a>
+                      <a href=" {{route('pdf',$bonVente->id)}} " class="d-none d-sm-inline-block btn btn-outline-success shadow-sm"><i class="fas fa-cloud-download-alt mr-2"></i>Téléchargé la facture</a>
                       @if ($bonVente->montantReste < 0)
                         <a href=" {{route('bonVente.rembourse',$bonVente->id)}} " class="d-none d-sm-inline-block btn btn-outline-warning text-dark shadow-sm"><i class="fas fa-hand-holding-usd mr-2"></i>Montant Rembourser</a>
                       @endif

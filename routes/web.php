@@ -16,14 +16,14 @@ use App\Http\Controllers\EmployeController;
 use App\Http\Controllers\VenteController;
 use App\Http\Controllers\MagazinController;
 use App\Http\Controllers\ActivationController;
+use App\Http\Controllers\PdfController;
 use App\Price ;
+
+
 Route::redirect('/','/login');
 
-// Route::get('/activation', [DashboardController::class,'notActivated'])->name('notActivated');
+Route::get('/pdf/{bonVente}', [PdfController::class,'generatePdf'])->name('pdf');
 
-// Route::post('/activation', [ActivationController::class,'activate'])->name('activation.activate');
-
-// Route::middleware(['auth','chekcActivation'])->group(function(){
 Route::middleware(['auth'])->group(function(){
 
    Route::get('/fixBug',function(){

@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Livewire;
-require_once('ChiffresEnLettres.php');
 
 use Illuminate\Support\Facades\DB;
 use Livewire\WithPagination;
@@ -96,7 +95,7 @@ class SelectProducts extends Component {
                
                $this->bonVente->updateMontantNetBonVente($this->montantGained);
                
-               $quantiteReste = $product->stock->quantiteReste - $this->qtt ;
+               $quantiteReste = ($product->stock->quantiteReste - $this->qtt) < 0 ? 0 : $product->stock->quantiteReste - $this->qtt;
                
                $product->stock->update(['quantiteReste' => $quantiteReste]);
                
@@ -219,73 +218,11 @@ class SelectProducts extends Component {
 
         $this->bonVente->update(['typeVente'=>$typeFacture]); 
 
-        $template = new \PhpOffice\PhpWord\TemplateProcessor(dirname(dirname(__DIR__)) . '\templates\facture.docx');
-
-
-        // Magazin
-         $magazin = Magazin::first();
-         $template->setValue('address', $magazin->address );
-         $template->setValue('commune', $magazin->commune );
-         $template->setValue('telephone', $magazin->telephone );
-         $template->setValue('fix', $magazin->fix );
-         $template->setValue('fax', $magazin->fax );
+        $magazin = Magazin::first();
         
-        
-       
+    
+        return redirect()->route('pdf',$this->bonVente->id);
 
-        // update bon vente
-        if ($this->client != null) {
-            
-            $template->setValue('codeClient',$this->client->id );
-            $template->setValue('clinetName',$this->client->firstName . ' ' . $this->client->lastName);
-            $template->setValue('clientAdresse',$this->client->address . ' ' . $this->client->commune . ' ' . $this->client->wilaya);
-            $template->setValue('clientActivite',$this->client->activite ?? '');
-            $output = 'facture '. $this->client->firstName . ' ' . $this->client->lastName .'.docx';
-        }
-        //Section Bonvente
-        $template->setValue('numeroBon',$this->bonVente->id);
-        $template->setValue('dateBon',$this->bonVente->get_created_at($this->bonVente->created_at));
-
-
-        // Fill products info into facture.docx
-        $i=1;
-        $nbrProducts = $this->bonVente->products()->count();
-        $template->cloneRow('predRef', $nbrProducts);
-        foreach ($this->bonVente->products as $product) {
-            $PU = floatval($product->pivot->montantTotal) / floatval($product->pivot->quantite) ;
-            $template->setValue('predRef#'.$i,  $product->refProduit ?? '');
-            $template->setValue('productName#'.$i,  $product->name);
-            $template->setValue('Qtt#'.$i,  $product->pivot->quantite );
-            $template->setValue('prix#'.$i, number_format($PU,2,'.',' ') );
-            $template->setValue('montant#'.$i, number_format($product->pivot->montantTotal,2,'.',' ') );
-            $i=$i+1;
-        }
-        //
-
-
-
-        // Montant du Bon de vente
-
-        $montantTVA = ($this->bonVente->montantTotal*19)/100;
-
-
-        $template->setValue('motantTotal',  number_format($this->bonVente->montantTotal,2,'.',' '));
-        $template->setValue('motantTVA',  number_format($montantTVA,2,'.',' '));
-        $template->setValue('montatGlobal',  number_format($this->bonVente->montantGlobal,2,'.',' '));
-
-        // montant en lettre
-        $ChiffreEnLettre = new ChiffreEnLettres();
-        $ChiffreEnLettreOutput= $ChiffreEnLettre->Conversion($this->bonVente->montantTotal);
-        $template->setValue('montantPayer',  number_format($this->bonVente->montantPayer,2,'.',' '));
-        $template->setValue('montantReste',  number_format($this->bonVente->montantReste,2,'.',' '));
-        $template->setValue('motantLettre',  strtoupper($ChiffreEnLettreOutput));
-
-        $output = 'facture.docx';
-
-        ob_end_clean();
-        ob_start();
-        $template->saveAs(storage_path($output));
-        return response()->download(storage_path($output));
     }
 
     public function render()
