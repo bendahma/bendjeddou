@@ -52,22 +52,24 @@
                         </div>
                     </td>
                     <td></td>
-                    <td>
-                        <div style="border: 1px solid black; border-radius: 0.25rem;">
-                            <table style="padding: 1rem 0.25rem;">
-                                <tbody>
-                                    <tr>
-                                        <td style="font-weight: bold;">N° client</td>
-                                        <td> : {{ $bonVente->client->id }} </td>
-                                    </tr>
-                                  
-                                    <tr>
-                                        <td style="font-weight: bold;">Nom &amp; Prenom</td>
-                                        <td> : {{ $bonVente->client->firstName . " " . $bonVente->client->lastName }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                    <td >
+                        @if( $bonVente->client->id != null)
+                            <div style="border: 1px solid black; border-radius: 0.25rem;">
+                                <table style="padding: 1rem 0.25rem;">
+                                    <tbody>
+                                        <tr>
+                                            <td style="font-weight: bold;">N° client</td>
+                                            <td> : {{ $bonVente->client->id }} </td>
+                                        </tr>
+                                    
+                                        <tr>
+                                            <td style="font-weight: bold;">Nom &amp; Prenom</td>
+                                            <td> : {{ $bonVente->client->firstName . " " . $bonVente->client->lastName }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        @endif
                     </td>
                 </tr>
             </tbody>
