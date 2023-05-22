@@ -53,7 +53,7 @@
                     </td>
                     <td></td>
                     <td >
-                        @if( $bonVente->client->id != null)
+                        @isset( $bonVente->client->id != null)
                             <div style="border: 1px solid black; border-radius: 0.25rem;">
                                 <table style="padding: 1rem 0.25rem;">
                                     <tbody>
@@ -69,7 +69,23 @@
                                     </tbody>
                                 </table>
                             </div>
-                        @endif
+                        @else
+                        <div style="border: 1px solid black; border-radius: 0.25rem;">
+                            <table style="padding: 1rem 0.25rem;">
+                                <tbody>
+                                    <tr>
+                                        <td style="font-weight: bold;">N° client</td>
+                                        <td> :  </td>
+                                    </tr>
+                                
+                                    <tr>
+                                        <td style="font-weight: bold;">Nom &amp; Prenom</td>
+                                        <td> : </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        @endisset
                     </td>
                 </tr>
             </tbody>
