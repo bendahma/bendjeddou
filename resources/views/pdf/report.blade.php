@@ -53,7 +53,7 @@
                     </td>
                     <td></td>
                     <td >
-                        @isset( $bonVente->client->id != null)
+                        @isset( $bonVente->client)
                             <div style="border: 1px solid black; border-radius: 0.25rem;">
                                 <table style="padding: 1rem 0.25rem;">
                                     <tbody>
