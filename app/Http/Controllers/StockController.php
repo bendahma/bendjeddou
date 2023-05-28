@@ -39,6 +39,26 @@ class StockController extends Controller
         toast('Nouveau stockage ajouté avec success','success');
         return redirect(route('stock.index'));
     }
+    public function RemoveQuantite(Request $request,$id)
+    {
+        
+        
+        $prod = Product::find($id);
+        $quantite = $prod->stock->quantite -  $request->quantite ;
+        $quantiteReste = $prod->stock->quantiteReste -  $request->quantite ;
+        $quantiteTotal = $prod->stock->quantiteTotal - $request->quantite ;
+        if($quantiteReste < 0 || $quantiteTotal < 0) {
+            toast('Erreur, tu ne peut pas retire cette quantité','error');
+            return redirect(route('stock.index'));
+        }
+        $prod->stock->update([
+            'quantite' => $quantite,
+            'quantiteReste'=>$quantiteReste,
+            'quantiteTotal' => $quantiteTotal,
+        ]);
+        toast('La quantit du produit à été modifier','success');
+        return redirect(route('stock.index'));
+    }
 
     /**
      * Store a newly created resource in storage.

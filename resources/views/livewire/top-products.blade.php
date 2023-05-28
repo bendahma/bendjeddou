@@ -45,8 +45,8 @@
           </table>
           <div>
             Affiche {{($products->currentpage()-1)*$products->perpage()+1}} à {{$products->currentpage()* $items }} Du {{$products->total()}} Produits
+            {{$products->links('vendor.pagination.bootstrap-4')}}
         </div>
-        {{$products->links('vendor.pagination.bootstrap-4')}}
 
        </div>
        </div>

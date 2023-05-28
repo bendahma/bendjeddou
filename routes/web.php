@@ -84,7 +84,7 @@ Route::middleware(['auth'])->group(function(){
                   Route::get('/transaction/{transaction}/supprime',[TransactionController::class,'supprime']);
 
                   Route::post('/stock/{product}/add',[StockController::class,'AddQuantite']);
-                  Route::patch('/stock/{product}/edit',[StockController::class,'UpdateQuantite']);
+                  Route::post('/stock/{product}/remove',[StockController::class,'RemoveQuantite']);
 
                Route::get('/marque/{marque}/products',[MarqueController::class,'products'])->name('marque.products');
                Route::get('/category/{category}/products',[CategoryController::class,'products'])->name('category.products');

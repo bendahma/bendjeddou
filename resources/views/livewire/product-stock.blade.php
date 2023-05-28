@@ -61,10 +61,19 @@
                                 <td style="width:10%;text-align:center">{{$product->stock->quantiteTotal}} </td>
                                 <td>
                                     <div class="">
-                                        <div class="">
-                                            <button data-toggle="modal" data-target="#exampleModal{{$product->id}}" class="btn btn-outline-success btn-block">
-                                                Ajouté stock
-                                            </button>
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <button data-toggle="modal" data-target="#exampleModal{{$product->id}}" class="btn btn-success btn-block">
+                                                    +
+                                                </button>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <button data-toggle="modal" data-target="#exampleModalMinus{{$product->id}}" class="btn btn-block" style="background-color: #9f0303;color:white;">
+                                                    -
+                                                </button>
+                                            </div>
+                                           
+                                           
                                             <div class="modal fade" id="exampleModal{{$product->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
                                                   <div class="modal-content">
@@ -100,8 +109,38 @@
 
                                                   </div>
                                                 </div>
-                                              </div>
-                                             </div>
+                                            </div>
+                                            <div class="modal fade" id="exampleModalMinus{{$product->id}}" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                  <div class="modal-content">
+                                                    <div class="modal-header">
+                                                      <h5 class="modal-title" id="ModalLabel">Produit stocker</h5>
+                                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                      </button>
+                                                    </div>
+                                                    <form action="{{url('/backoffice/stock/'.$product->id.'/remove')}}" method="POST" >
+                                                        @csrf
+                                                        <div class="modal-body">
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <div class="form--group">
+                                                                        <label for="">Quantité retirée</label>
+                                                                        <input type="text" class="form-control" name="quantite" placeholder="Quantité à stocker">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="submit" class="btn btn-outline-success">Confirmé</button>
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </form>
+
+                                                  </div>
+                                                </div>
+                                            </div>
+                                        </div>
 
                                     </div>
                                 </td>

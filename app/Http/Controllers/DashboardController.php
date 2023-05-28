@@ -75,7 +75,10 @@ class DashboardController extends Controller
                                        DB::raw('sum(montantReste) as montantReste'),
                                        DB::raw('sum(montantNetTotal) as montantNetTotal'))
                               ->groupBy('date')
+                              ->orderBy('date','DESC')
                               ->get();
+        $totalDette = BonVente::select(DB::raw('sum(montantReste) as montantReste'))->first()->montantReste;
+      
 
          return view('backoffice.statistiques.index')
                   ->with('frais',$frais)
@@ -83,7 +86,8 @@ class DashboardController extends Controller
                   ->with('netEarning',$netEarning)
                   ->with('montantOnHold',$montantOnHold)
                   ->with('produitsReste',$produitsReste)
-                  ->with('dailyVente',$dailyVente);
+                  ->with('dailyVente',$dailyVente)
+                  ->with('totalDette',$totalDette);
 
     }
 }
