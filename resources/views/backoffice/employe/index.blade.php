@@ -26,7 +26,7 @@
                         @foreach ($employes as $e)
                             <tr class="">
                                 <td> {{$loop->iteration}} </td>
-                                <td> {{$e->nom . ' ' . $e->prenom}} </td>
+                                <td> {{strtoupper($e->nom . ' ' . $e->prenom)}} </td>
                                 <td> {{$e->address}} </td>
                                 <td> {{$e->telephone}} </td>
                                 <td> {{$e->salaire}} </td>

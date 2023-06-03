@@ -24,7 +24,7 @@
           <table class="table mt-1 font-weight-bold">
              <thead>
              <tr>
-                <th>Réf</th>
+                <th>#</th>
                 <th>Produit</th>
                 <th>Quantité vendu</th>
              </tr>
@@ -32,8 +32,8 @@
              <tbody>
                 @forelse ($products as $product)
                 <tr>
-                   <td style="width:10%"> {{$product->refProduit}} </td>
-                   <td style="width:70%"> {{$product->name}} </td>
+                   <td style="width:10%"> {{$loop->iteration}} </td>
+                   <td style="width:70%"> {{strtoupper($product->name)}} </td>
                    <td> {{$product->qtt}} </td>
                 </tr>
                 @empty

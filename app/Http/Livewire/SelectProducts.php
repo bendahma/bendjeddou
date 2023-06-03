@@ -227,7 +227,9 @@ class SelectProducts extends Component {
 
     public function render()
     {
-        $products = Product::search($this->search)->with('price')->orderBy('id','ASC')->paginate($this->items,['id','name']);
+        $products = Product::search($this->search)->whereHas('stock',function($q){
+                                                        $q->where('quantiteReste', '>', 0);
+                                                    })->with('price')->orderBy('id','ASC')->paginate($this->items,['id','name']);
         $clients = Client::all();
         return view('livewire.select-products')
                         ->with('clients',$clients)

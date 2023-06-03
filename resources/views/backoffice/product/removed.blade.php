@@ -4,7 +4,7 @@
     <div class="container">
         <div class="card card-success">
             <div class="card-header">
-                <h4 class="text-dark">Removed Products</h4>
+                <h4 class="text-dark">Produits supprimé</h4>
             </div>
             <div class="card-body">
                 <table class="table" id="Table">

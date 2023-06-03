@@ -5,7 +5,7 @@
         <div class="card card-success">
             <div class="card-header">
                 <div class="d-sm-flex align-items-center justify-content-between">
-                    <h5 class=""><i class="fas fa-archive mr-1"></i> Lists Des Produits</h5>
+                    <h5 class="">Promotion</h5>
                 </div>
                 </div>
             <div class="card-body">
@@ -26,7 +26,7 @@
                         @foreach ($products as $product)
                             <tr>
                                 <td>{{$product->id}}</td>
-                                <td>{{$product->name }} </td>
+                                <td style="font-size: 1rem">{{strtoupper($product->name) }} </td>
                                 <td> {{ number_format($product->price->prixAchat,2,'.',' ')}} </td>
                                 @if ($product->price->discount == true)
                                     <td>

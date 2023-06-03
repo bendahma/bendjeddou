@@ -187,7 +187,7 @@
                         @foreach ($bonVente->products as $b)
                             <tr>
                                 <td> {{$loop->iteration}} </td>
-                                <td> {{$b->name}} </td>
+                                <td> {{strtoupper($b->name)}} </td>
                                 <td> {{number_format($b->pivot->montantTotal / $b->pivot->quantite,2,'.',' ')}} DA  </td>
                                 <td> {{$b->pivot->quantite}}  </td>
                                 <td> {{number_format($b->pivot->montantTotal,2,'.',' ')}} DA  </td>

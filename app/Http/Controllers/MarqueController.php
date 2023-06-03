@@ -63,6 +63,6 @@ class MarqueController extends Controller
         $products = Product::whereHas('marque',function($q) use ($marque){
             $q->where('id',$marque->id);
         })->with(['marque','category'])->get();
-        return view('backoffice.marque.products')->with('products',$products);
+        return view('backoffice.marque.products')->with('products',$products)->with('marque',$marque);
     }
 }

@@ -4,7 +4,7 @@
     <div class="container">
         <div class="card card-default">
             <div class="card-header mb-0 pb-0">
-                <h4  style="font-weight: 700; color:black"><i class="fas fa-laptop mr-1"></i>  {{isset($product) ? 'Modifier les informations du' : 'Ajouté un nouveau'}}  produit</h4>
+                <h4  style="font-weight: 700; color:black"><i class="fas fa-laptop mr-1"></i>  {{isset($product) ? 'Modifier les informations du' : 'Ajouté un '}}  produit</h4>
             </div>
             <div class="card-body">
                 <form action="{{isset($product) ? route('product.update',$product->id) : route('product.store')}}" method="POST" enctype="multipart/form-data">

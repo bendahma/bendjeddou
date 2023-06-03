@@ -4,7 +4,7 @@
 
     <div class="card card-default">
         <div class="card-header mb-0 pb-0">
-            <h4  style="font-weight: 700; color:black">{{isset($frais) ? 'Modifier Les Informations Du ' : 'Ajouté une Nouvelle'}} Charge</h4>
+            <h4  style="font-weight: 700; color:black">{{isset($frais) ? 'Modifier les informations du ' : 'Ajouter une '}} charge</h4>
         </div>
         <div class="card-body">
             <form action=" {{ isset($frais) ? route('frais.update',$frais->id) : route('frais.store')}} " method="POST" enctype="multipart/form-data">
@@ -20,9 +20,10 @@
                         
                         <div class="col">
                            <div class="form-group">
-                              <label for="">Type Du Charge</label>
+                              <label for="">Type du charge</label>
                                 <select name="typeFrais"  class="custom-select" id="frais">
                                     <option selected disabled>Choisi le type du frais payé</option>
+                                    <option value="Paiements des employés" {{isset($frais) && $frais->typeFrais == 'Paiements des employés' ? 'selected' : '' }} >Paiements des employés</option>
                                     <option value="Allocation du magasin" {{isset($frais) && $frais->typeFrais == 'Allocation du magasin' ? 'selected' : '' }} >Allocation du magasin</option>
                                     <option value="Electricité" {{isset($frais) && $frais->typeFrais == 'Electricité' ? 'selected' : '' }}>Electricité</option>
                                     <option value="Eaux" {{isset($frais) && $frais->typeFrais == 'Eaux' ? 'selected' : '' }}>Eaux</option>
@@ -36,7 +37,7 @@
                         <div class="d-none" id="autreFrais">
                            <div class="col">
                               <div class="form-group">
-                                 <label for="">Type De Frais</label>
+                                 <label for="">Type de charge</label>
                                  <input type="text" class="form-control" name="autreFraisType" placeholder="Autre frais" 
                                           value=" {{isset($frais) && $frais->typeFrais == 'autre' ? $frais->autreFraisType : '' }} ">
                               </div>
@@ -45,14 +46,14 @@
                        
                         <div class="col">
                            <div class="form-group">
-                                 <label for="">Date Du Paiement</label>
+                                 <label for="">Date du paiement</label>
                                  <input type="date" class="form-control" name="dateFrais" value="{{isset($frais) ? $frais->dateFrais : '' }}">
                                  
                            </div>
                         </div>
                         <div class="col">
                            <div class="form-group">
-                                 <label for="">Montant Paie</label>
+                                 <label for="">Montant paie</label>
                                  <input type="text" class="form-control" name="montant" value="{{isset($frais) ? $frais->montant : '' }}">
                                  
                            </div>
@@ -65,7 +66,7 @@
                         
                         <div class="col">
                            <div class="form-group">
-                                 <input type="submit" value="{{isset($frais) ? 'Mettre à jours' : 'Ajouté'}} charge" class="btn btn-outline-success btn-block">
+                                 <input type="submit" value="{{isset($frais) ? 'Mettre à jour la ' : 'Ajouter une '}} charge" class="btn btn-outline-success btn-block">
                            </div>
                         </div>
                      

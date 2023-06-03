@@ -4,7 +4,7 @@
 
     <div class="card card-default">
         <div class="card-header mb-0 pb-0">
-            <h4  style="font-weight: 700; color:black">Les Informations Du magazin</h4>
+            <h4  style="font-weight: 700; color:black">Les Informations du magazin</h4>
         </div>
         <div class="card-body">
             <form action="{{route('magazin.updateProfile',1)}}" method="POST" enctype="multipart/form-data">

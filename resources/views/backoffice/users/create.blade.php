@@ -4,7 +4,7 @@
 
     <div class="card card-default">
         <div class="card-header mb-0 pb-0">
-            <h4  style="font-weight: 700; color:black"> <i class="fas fa-user"></i> {{isset($user) ? 'Modifier Les Informations Du l' : 'Ajouté Nouveau'}} utilisateur</h4>
+            <h4  style="font-weight: 700; color:black"> <i class="fas fa-user"></i> {{isset($user) ? 'Modifier les informations du l' : 'Ajouter un '}} utilisateur</h4>
         </div>
         <div class="card-body">
             <form action="{{isset($user) ? route('users.update',$user->id) : route('users.store')}}" method="POST">

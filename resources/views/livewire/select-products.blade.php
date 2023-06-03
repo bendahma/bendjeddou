@@ -170,7 +170,7 @@
                                 <tr>
                                     {{-- <td style="width:5%"> {{$loop->iteration}} </td> --}}
                                     <td style="width:5%"> {{$product->id}} </td>
-                                    <td style="width:40%"> {{$product->name}} </td>
+                                    <td style="width:40%"> {{strtoupper($product->name)}} </td>
                                     <td style="width:30%">
                                         @if ($product->check_discount($product->id))
                                             <span style="font-size: 0.8rem;   text-decoration: line-through"> {{  number_format(  $product->price[$TypeVente],2,'.',' ' ) }} </span>
@@ -260,12 +260,12 @@
                         <tbody>
                             @forelse ($selectedProducts as $product)
                                 <tr>
-                                    <td style="width:40%"> {{$product->name}} </td>
+                                    <td style="width:40%"> {{strtoupper($product->name)}} </td>
 
                                     <td style="width:15%">
                                         {{$product->pivot->quantite}}
                                     </td>
-                                    <td style="width:40%;font-size:0.8rem;font-weight:700">{{ number_format($product->pivot->prixVente,2,'.',' ')}} DA</td>
+                                    <td style="width:40%;font-size:0.8rem;font-weight:700">{{ number_format($product->pivot->prixVente*$product->pivot->quantite,2,'.',' ')}} DA</td>
                                     <td style="width:5%">
                                         <div class="d-flex">
                                             <button class="btn border-0 text-success btn-block" data-toggle="modal" data-target="#{{'editQuantite'.$product->id}}">

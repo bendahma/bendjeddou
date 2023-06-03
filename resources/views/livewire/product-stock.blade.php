@@ -1,9 +1,9 @@
 <div>
     <div class="container-fluid">
         <div class="card card-success">
-            <div class="card-header bg-dark text-light">
+            <div class="card-header ">
                 <div class="d-sm-flex align-items-center justify-content-between">
-                        <h4 class=""><i class="fas fa-list"></i> Stockage des produits</h4>
+                        <h4 class="">Stock</h4>
 
                 </div>
             </div>
@@ -43,22 +43,22 @@
                         <tr class="text-center text-sm">
                             <th>N°</th>
                             <th>Produit</th>
-                            <th>Reste</th>
-                            <th>Date de Stockage</th>
-                            <th>Quantité</th>
-                            <th>Total</th>
+                            <th>Quantité stockée</th>
+                            <th>Date de stockage</th>
+                            <th>Quantité restante</th>
+                            <th>Quantité Totale</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($products as $product)
-                            <tr class=" {{$product->stock->outOfStock == true || $product->stock->quantiteReste == 0 ? 'bg-danger' : ''}} {{$product->stock->quantiteReste < 30 ? 'bg-warning' : ''}}">
+                            <tr class="">
                                 <td style="width:5%;text-align:center"> {{$loop->iteration}} </td>
-                                <td style="width:30%;text-align:center">{{$product->name}} </td>
-                                <td style="width:10%;font-size:1.3rem;font-weight:700;text-align:center">{{$product->stock->quantiteReste}} </td>
-                                <td style="width:20%;text-align:center">{{$product->stock->fillDate}} </td>
+                                <td style="width:30%;text-align:center">{{strtoupper($product->name)}} </td>
                                 <td style="width:10%;text-align:center">{{$product->stock->quantite}} </td>
-                                <td style="width:10%;text-align:center">{{$product->stock->quantiteTotal}} </td>
+                                <td style="width:20%;text-align:center">{{$product->stock->fillDate}} </td>
+                                <td style="width:10%;font-size:1rem;font-weight:700;text-align:center">{{$product->stock->quantiteReste}} </td>
+                                <td style="width:10%;text-align:center">{{ $product->stock->quantiteTotal}} </td>
                                 <td>
                                     <div class="">
                                         <div class="row">

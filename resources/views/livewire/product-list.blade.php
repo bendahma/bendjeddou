@@ -41,9 +41,7 @@
                     @forelse($products as $product)
                         <tr>
                             <td> {{$loop->iteration}} </td>
-                            <td style="width:20%"> {{$product->name}} </td>
-                            {{-- <td style="width:15%">{{$product->marque->name}}</td>
-                            <td style="width:15%">{{$product->category->name}}</td> --}}
+                            <td style="width:20%"> {{strtoupper($product->name)}} </td>
                             <td style="width:15%"> {{ number_format($product->price->prixAchat,2,'.',' ')}}</td>
                             <td style="width:15%"> {{ number_format($product->price->prixVenteGros,2,'.',' ')}}</td>
                             <td style="width:15%">

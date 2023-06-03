@@ -60,6 +60,6 @@ class CategoryController extends Controller
         $products = Product::whereHas('category',function($q) use ($category){
             $q->where('id',$category->id);
         })->with(['marque','category'])->get();
-        return view('backoffice.category.products')->with('products',$products);
+        return view('backoffice.category.products')->with('products',$products)->with('category',$category);
     }
 }

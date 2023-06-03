@@ -26,7 +26,7 @@
                         @foreach ($categories as $category)
                             <tr>
                                 <td> {{$loop->iteration}} </td>
-                                <td> <a href=" {{route('category.products',$category->id)}} "> {{$category->name}} </a></td>
+                                <td> <a href=" {{route('category.products',$category->id)}} "> {{strtoupper($category->name)}} </a></td>
                                 <td> {{ number_format($category->get_mony_achat_total()['total_achat'],2,'.',' ')}} </td>
                                 <td> {{ number_format($category->get_mony_achat_total()['total_gros'],2,'.',' ')}} </td>
                                 <td> {{ number_format($category->get_mony_achat_total()['total_details'],2,'.',' ')}} </td>
